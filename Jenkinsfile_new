@@ -37,10 +37,10 @@ pipeline {
                 '''
             }
         }
-            stages {
+
         stage('Clean Workspace') {
             steps {
-                echo "Cleaning Workspace......"
+                echo "Cleaning Workspace..."
                 deleteDir()
             }
         }
@@ -67,7 +67,7 @@ pipeline {
             post {
                 always {
                     archiveArtifacts artifacts: 'lint_report.txt', fingerprint: true
-                    fingerprint 'main.c'
+                    fingerprint 'src/main.c'
                 }
             }
         }
@@ -89,13 +89,13 @@ pipeline {
                 '''
             }
         }
+
         stage('Unit Tests') {
             steps {
                 echo 'Running unit tests...'
                 sh '''
                     if [ -d build ]; then
                         cd build
-                        # Run all registered CTest tests
                         ctest --output-on-failure
                     else
                         echo "Build directory not found!"
@@ -104,6 +104,7 @@ pipeline {
                 '''
             }
         }
+
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube (SonarCloud) analysis...'
