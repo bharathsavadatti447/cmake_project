@@ -37,6 +37,20 @@ pipeline {
                 '''
             }
         }
+            stages {
+        stage('Clean Workspace') {
+            steps {
+                echo "Cleaning Workspace......"
+                deleteDir()
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                echo "Cloning repository from ${GIT_REPO} (branch: ${BRANCH})"
+                git branch: "${BRANCH}", url: "${GIT_REPO}"
+            }
+        }
 
         stage('Lint') {
             steps {
