@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'linuxgit' }
+    agent { label 'Node-Linux' }
 
     environment {
         GIT_REPO = 'https://github.com/bharathsavadatti447/cmake_project.git'
